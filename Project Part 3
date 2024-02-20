@@ -1,0 +1,88 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+
+public class PolicyHolder {
+    private String firstName;
+    private String lastName;
+    private int age;
+    private String smokingStatus;
+
+    public PolicyHolder(String firstName, String lastName, int age, String smokingStatus) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.smokingStatus = smokingStatus;
+    }
+
+    
+
+    @Override
+    public String toString() {
+        return "Policyholder: " + firstName + " " + lastName +
+               "\nAge: " + age +
+               "\nSmoking Status: " + smokingStatus;
+    }
+}
+
+public class Policy {
+    private String policyNumber;
+    private String providerName;
+    private PolicyHolder policyHolder;
+    private double height;
+    private double weight;
+
+  
+    private static int numberOfPolicies = 0;
+
+    public Policy(String policyNumber, String providerName, PolicyHolder policyHolder,
+                  double height, double weight) {
+        this.policyNumber = policyNumber;
+        this.providerName = providerName;
+        this.policyHolder = policyHolder;
+        this.height = height;
+        this.weight = weight;
+
+        numberOfPolicies++;
+    }
+
+
+
+
+    public String toString() {
+        return "Policy Number: " + policyNumber +
+               "\nProvider Name: " + providerName +
+               "\n" + policyHolder.toString() +
+               "\nHeight: " + height + " inches" +
+               "\nWeight: " + weight + " pounds";
+    }
+
+ 
+}
+
+public class PolicyDemo {
+    public static void main(String[] args) throws IOException {
+   
+        for (Policy policy : policyList) {
+            System.out.println(policy.toString());
+        
+        }
+
+      
+        System.out.println("There were " + Policy.getNumberOfPolicies() + " Policy objects created.");
+        System.out.println("The number of policies with a smoker is: " + calculateNumSmokers(policyList));
+        System.out.println("The number of policies with a non-smoker is: " + (policyList.size() - calculateNumSmokers(policyList)));
+    }
+
+ 
+    private static int calculateNumSmokers(ArrayList<Policy> policies) {
+        int numSmokers = 0;
+        for (Policy policy : policies) {
+            if (policy.getPolicyHolder().getSmokingStatus().equalsIgnoreCase("smoker")) {
+                numSmokers++;
+            }
+        }
+        return numSmokers;
+    }
+}
